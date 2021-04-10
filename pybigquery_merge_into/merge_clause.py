@@ -40,14 +40,16 @@ def compile_when_clause(element: _WhenClause, compiler: SQLCompiler, **kwargs):
     action_text = None
     if isinstance(element.action, Delete):
         action_text = "DELETE"  # this one's alright though
+
     if isinstance(element.action, Update):
         action_text = compiler.process(element.action, **kwargs)
         # remove the `<table>` from `UPDATE <table> SET`
         action_text = action_text.replace(compiler.process(element.action.table, asfrom=True), "", 1)
+
     if isinstance(element.action, Insert):
-        # remove the `INTO <table>` from `INSERT INTO <table> (...) VALUES`
         action_text = compiler.process(element.action, **kwargs)
-        action_text = action_text.replace("INTO " + compiler.process(element.action.table, asfrom=True), "", 1)
+        # remove the `INTO <table>` from `INSERT INTO <table> (...) VALUES`, handling the potential aliasing
+        action_text = action_text.replace(f"INTO `{element.action.table.name}` ", "", 1)
 
     text += " THEN \n\t{}\n".format(action_text)
 

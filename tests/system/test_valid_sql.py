@@ -157,6 +157,8 @@ def test_alias_on_target(connection, target, source):
         onclause=alias.c.t1 == source.c.s1,
         when_clauses=[
             WhenNotMatchedBySource(delete(alias), condition=alias.c.t2 > date.today()),
+            WhenNotMatched(insert(alias).values(t1="dummy")),
+            WhenMatched(update(alias).values(t2=date.today())),
         ]
     )
 

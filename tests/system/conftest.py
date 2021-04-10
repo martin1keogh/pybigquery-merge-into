@@ -9,7 +9,7 @@ from sqlalchemy.sql.ddl import CreateSchema, DropSchema
 
 @pytest.fixture(scope="session")
 def engine():
-    return create_engine("bigquery://")
+    return create_engine("bigquery://", echo=True)
 
 
 @pytest.fixture(scope="session")

@@ -50,7 +50,7 @@ def test_when_not_matched():
         USING `source`
         ON `target`.`t1` = `source`.`s1`
         WHEN NOT MATCHED BY TARGET THEN 
-        \tINSERT  (`t2`) VALUES ((`source`.`s2` + :s2_1))
+        \tINSERT (`t2`) VALUES ((`source`.`s2` + :s2_1))
         """
 
     assert str(query.compile(dialect=BigQueryDialect())) == dedent(expected)
