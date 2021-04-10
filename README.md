@@ -44,7 +44,7 @@ WHEN NOT MATCHED BY SOURCE AND `target`.`t2` > :t2_1 THEN
 	DELETE
 ```
 
-See the [tests](tests/system/test_valid_sql.py) for more examples.
+See the [tests](tests/unit/test_sql_compiles.py#L89-L135) for more examples.
  
 ## TODO
 
