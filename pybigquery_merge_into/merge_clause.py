@@ -80,6 +80,12 @@ class MergeInto(Executable, ClauseElement):
             onclause: ColumnElement,
             when_clauses: List[_WhenClause]
     ):
+        """
+        :param target: Table to be updated
+        :param source: Origin of the new data. Must be either a table or a subquery
+        :param onclause: SQLAlchemy condition, will be used to match the data between tables
+        :param when_clauses: List of [WhenMatched, WhenNotMatched, WhenNotMatchedBySource] instances
+        """
         assert when_clauses, "An MERGE INTO statement requires at least one `when_clause`"
 
         super().__init__()
