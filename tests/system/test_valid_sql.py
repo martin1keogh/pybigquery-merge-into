@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
 import pytest
-from sqlalchemy import Column, Date, MetaData, String, Table, delete, insert, join, literal, select, update
+from sqlalchemy import Column, Date, MetaData, String, Table, delete, insert, literal, select, update
 from sqlalchemy.sql.ddl import CreateTable, DropTable
 
 from pybigquery_merge_into.merge_clause import MergeInto, WhenMatched, WhenNotMatched, WhenNotMatchedBySource
@@ -172,6 +172,24 @@ def test_alias_on_source(connection, target, source):
         when_clauses=[
             WhenMatched(update(target).values({
                 target.c.t2: alias.c.s2
+            })),
+        ]
+    )
+
+    connection.execute(query)
+
+
+def test_cte_in_source(connection, target, source):
+    cte = select([source.c.s1]).cte("cte")
+    sub = select([cte.c.s1]).select_from(cte)
+
+    query = MergeInto(
+        target=target,
+        source=sub,
+        onclause=target.c.t1 == sub.c.s1,
+        when_clauses=[
+            WhenMatched(update(target).values({
+                target.c.t1: sub.c.s1
             })),
         ]
     )

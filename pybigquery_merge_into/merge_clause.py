@@ -102,14 +102,18 @@ def compile_merge_into(element: MergeInto, compiler: SQLCompiler, **kwargs):
         USING {source}
         ON {cond}
     """)
+
+    # I'm not sure *why* this must be done before the other `compiler.process`,
+    # but doing this after breaks some more complicated queries, e.g when there's a
+    # CTE (WITH-table) in the source.
+    for when_clause in element.when_clauses:
+        base_template += compiler.process(when_clause)
+
     query = base_template.format(
         target=compiler.process(element.target, asfrom=True, **kwargs),
         source=compiler.process(element.source, asfrom=True, **kwargs),
         cond=compiler.process(element.onclause, **kwargs),
     )
-
-    for when_clause in element.when_clauses:
-        query += compiler.process(when_clause)
 
     # deactivate all "fetch PK" or "implicit-returning" features
     # XXX should we set isdelete = False too?
