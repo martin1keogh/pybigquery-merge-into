@@ -108,27 +108,27 @@ def test_compiles_example_1():
     T = detailed_inventory.alias("T")
     S = inventory.alias("S")
 
+    # without a meaningful variable name this is more confusing than anything really,
+    # but it lets me check this sort of factoring out works too.
+    default_insert = insert(T).values({
+        T.c.product: S.c.product,
+        T.c.quantity: S.c.quantity,
+        T.c.supply_constrained: literal(False),
+    })
+
     query = MergeInto(
         target=T,
         source=S,
         onclause=T.c.product == S.c.product,
         when_clauses=[
             WhenNotMatched(
-                insert(T).values({
-                    T.c.product: S.c.product,
-                    T.c.quantity: S.c.quantity,
+                default_insert.values({
                     T.c.supply_constrained: literal(True),
                     T.c.comments: text("ARRAY<STRUCT<created DATE, comment STRING>>[(DATE('2016-01-01'), 'comment1')]")  # can't figure this one out without cheating a bit
                 }),
                 condition=T.c.quantity < 20
             ),
-            WhenNotMatched(
-                insert(T).values({
-                    T.c.product: S.c.product,
-                    T.c.quantity: S.c.quantity,
-                    T.c.supply_constrained: literal(False),
-                }),
-            )
+            WhenNotMatched(default_insert)
         ]
     )
 
