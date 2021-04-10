@@ -111,7 +111,7 @@ def compile_merge_into(element: MergeInto, compiler: SQLCompiler, **kwargs):
     # Another solution might be to process the `when_clauses` in a copy() of the compiler
     # with the .ctes emptied, ie in a "blank" state.
     for when_clause in element.when_clauses:
-        base_template += compiler.process(when_clause)
+        base_template += compiler.process(when_clause, **kwargs)
 
     query = base_template.format(
         target=compiler.process(element.target, asfrom=True, **kwargs),
