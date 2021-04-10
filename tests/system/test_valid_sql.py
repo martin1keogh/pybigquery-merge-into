@@ -195,3 +195,20 @@ def test_cte_in_source(connection, target, source):
     )
 
     connection.execute(query)
+
+
+def test_update_shared_columns(connection, target, source):
+    sub = select([source.c.s1.label("t1")]).alias("sub")
+
+    query = MergeInto(
+        target=target,
+        source=sub,
+        onclause=target.c.t1 == sub.c.t1,
+        when_clauses=[
+            WhenMatched(update(target).values({
+                target.c.t1: sub.c.t1
+            })),
+        ]
+    )
+
+    connection.execute(query)
