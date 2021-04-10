@@ -172,9 +172,9 @@ def test_alias_on_source(connection, target, source):
         source=alias,
         onclause=target.c.t1 == alias.c.s1,
         when_clauses=[
-            WhenMatched(update(target).values({
-                target.c.t2: alias.c.s2
-            })),
+            WhenNotMatchedBySource(delete(target)),
+            WhenNotMatched(insert(target).values(t1=alias.c.s1)),
+            WhenMatched(update(target).values(t2=alias.c.s2)),
         ]
     )
 
