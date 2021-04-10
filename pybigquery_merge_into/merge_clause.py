@@ -103,9 +103,13 @@ def compile_merge_into(element: MergeInto, compiler: SQLCompiler, **kwargs):
         ON {cond}
     """)
 
-    # I'm not sure *why* this must be done before the other `compiler.process`,
-    # but doing this after breaks some more complicated queries, e.g when there's a
-    # CTE (WITH-table) in the source.
+    # Do the INSERT/UPDATE/DELETE parts first.
+    # This is because CTEs in the `source` value (and elsewhere, but there really shouldn't
+    # ever be a CTE in `target` and/or `cond`) would appear in the INSERT/UPDATE (SQLAlchemy
+    # sees a CTE in the context, so it pushes it to the top of the INSERT/UPDATE part).
+    # This feels pretty hackish, but it works well for now.
+    # Another solution might be to process the `when_clauses` in a copy() of the compiler
+    # with the .ctes emptied, ie in a "blank" state.
     for when_clause in element.when_clauses:
         base_template += compiler.process(when_clause)
 
