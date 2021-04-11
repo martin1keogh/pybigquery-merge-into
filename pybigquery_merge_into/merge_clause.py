@@ -105,21 +105,24 @@ def compile_merge_into(element: MergeInto, compiler: SQLCompiler, **kwargs):
         ON {cond}
     """)
 
-    # Do the INSERT/UPDATE/DELETE parts first.
+    # Compile the INSERT/UPDATE/DELETE parts first.
     # This is because CTEs in the `source` value (and elsewhere, but there really shouldn't
     # ever be a CTE in `target` and/or `cond`) would appear in the INSERT/UPDATE (SQLAlchemy
     # sees a CTE in the context, so it pushes it to the top of the INSERT/UPDATE part).
     # This feels pretty hackish, but it works well for now.
     # Another solution might be to process the `when_clauses` in a copy() of the compiler
     # with the .ctes emptied, ie in a "blank" state.
+    actions = []
     for when_clause in element.when_clauses:
-        base_template += compiler.process(when_clause, **kwargs)
+        actions.append(compiler.process(when_clause, **kwargs))
 
     query = base_template.format(
         target=compiler.process(element.target, asfrom=True, **kwargs),
         source=compiler.process(element.source, asfrom=True, **kwargs),
         cond=compiler.process(element.onclause, **kwargs),
     )
+
+    query += "".join(actions)
 
     # deactivate all "fetch PK" or "implicit-returning" features
     # XXX should we set isdelete = False too?

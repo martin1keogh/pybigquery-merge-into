@@ -84,3 +84,26 @@ def test_cte_in_source():
         """
 
     assert str(query.compile(dialect=BigQueryDialect())) == dedent(expected)
+
+
+def test_brackets_in_actions():
+    query = MergeInto(
+        target=target,
+        source=source,
+        onclause=target.c.t1 == source.c.s1,
+        when_clauses=[
+            WhenMatched(insert(target).values({
+                target.c.t1: "{}"
+            })),
+        ]
+    )
+
+    expected = """\
+        MERGE INTO `target`
+        USING `source`
+        ON `target`.`t1` = `source`.`s1`
+        WHEN MATCHED THEN 
+        \tINSERT (`t1`) VALUES ('{}')
+        """
+
+    assert str(query.compile(dialect=BigQueryDialect(),  compile_kwargs={'literal_binds': True})) == dedent(expected)
