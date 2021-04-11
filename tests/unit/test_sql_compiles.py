@@ -1,11 +1,12 @@
 from datetime import timedelta
 from textwrap import dedent
 
+import sqlparse
 from pybigquery.sqlalchemy_bigquery import BigQueryDialect
-from sqlalchemy import delete, insert, literal, select, text, update
+from sqlalchemy import delete, insert, join, literal, select, text, update
 
 from pybigquery_merge_into.merge_clause import MergeInto, WhenMatched, WhenNotMatched
-from tests.conftest import detailed_inventory, inventory, new_arrivals, source, target
+from tests.conftest import detailed_inventory, inventory, new_arrivals, source, target, warehouse
 
 
 def test_when_matched():
@@ -206,3 +207,45 @@ def test_example_3():
     )
 
     assert str(query.compile(dialect=BigQueryDialect(), compile_kwargs={'literal_binds': True})) == dedent(expected)
+
+
+def test_example_6():
+    expected = """\
+        MERGE INTO dataset.Inventory AS T
+        USING (SELECT t1.product AS product, t1.quantity AS quantity, t2.state AS state FROM dataset.NewArrivals AS t1 JOIN dataset.Warehouse AS t2 ON t1.warehouse = t2.warehouse) AS S
+        ON T.product = S.product
+        WHEN MATCHED AND S.state = 'CA' THEN 
+        \tUPDATE SET quantity=(T.quantity + S.quantity)
+        WHEN MATCHED THEN 
+        \tDELETE
+        """
+    expected = sqlparse.format(dedent(expected), reindent=True)
+
+    T = inventory.alias("T")
+    NA = new_arrivals.alias("t1")
+    W = warehouse.alias("t2")
+    S = select([NA.c.product, NA.c.quantity, W.c.state]).select_from(join(NA, W, NA.c.warehouse == W.c.warehouse)).alias("S")
+
+    query = MergeInto(
+        target=T,
+        source=S,
+        onclause=T.c.product == S.c.product,
+        when_clauses=[
+            WhenMatched(
+                update(T).values({
+                    T.c.quantity: T.c.quantity + S.c.quantity,
+                }),
+                condition=S.c.state == "CA"
+            ),
+            WhenMatched(
+                delete(T)
+            )
+        ]
+    )
+
+    actual = str(query.compile(dialect=BigQueryDialect(), compile_kwargs={'literal_binds': True}))
+    # no option to strip quotes from indentifers in sqlparse?
+    actual = actual.replace("`", "")
+    actual = sqlparse.format(actual, reindent=True)
+
+    assert actual == expected
