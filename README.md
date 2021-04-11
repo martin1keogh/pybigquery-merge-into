@@ -17,18 +17,12 @@ The main class is `pybigquery_merge_into.merge_clause.MergeInto()`.
 ```python
 >>> query = MergeInto(
         target=target,
-        source=source,
+        source=source,  # this could also be a subquery
         onclause=target.c.t1 == source.c.s1,
         when_clauses=[
-            WhenMatched(update(target).values({
-                target.c.t2: source.c.s2 + timedelta(days=1).days
-            })),
-            WhenNotMatched(insert(target).values({
-                target.c.t2: source.c.s2 + timedelta(days=1).days
-            })),
-            WhenNotMatchedBySource(
-                delete(target), condition=target.c.t2 > date.today()
-            ),
+            WhenMatched(update(target).values({target.c.t2: source.c.s2 + timedelta(days=1).days})),
+            WhenNotMatched(insert(target)),
+            WhenNotMatchedBySource(delete(target), condition=target.c.t2 > date.today()),
         ]
     )
 
@@ -37,9 +31,9 @@ MERGE INTO `target`
 USING `source`
 ON `target`.`t1` = `source`.`s1`
 WHEN MATCHED THEN 
-	UPDATE  SET `t2`=(`source`.`s2` + :s2_1)
+	UPDATE SET `t2`=(`source`.`s2` + :s2_1)
 WHEN NOT MATCHED BY TARGET THEN 
-	INSERT  (`t2`) VALUES ((`source`.`s2` + :s2_2))
+	INSERT ROW
 WHEN NOT MATCHED BY SOURCE AND `target`.`t2` > :t2_1 THEN 
 	DELETE
 ```
