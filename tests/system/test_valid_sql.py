@@ -214,3 +214,18 @@ def test_update_shared_columns(connection, target, source):
     )
 
     connection.execute(query)
+
+
+def test_parameterless_insert(connection, target, source):
+    query = MergeInto(
+        target=target,
+        source=source,
+        onclause=target.c.t1 == source.c.s1,
+        when_clauses=[
+            WhenNotMatched(insert(target), condition=source.c.s1 != None),
+            WhenNotMatched(insert(target).values(t1="dummy"), condition=source.c.s2 < date.today()),
+            WhenNotMatched(insert(target)),
+        ]
+    )
+
+    connection.execute(query)

@@ -3,9 +3,9 @@ from textwrap import dedent
 import pytest
 import sqlparse
 from pybigquery.sqlalchemy_bigquery import BigQueryDialect
-from sqlalchemy import delete, insert, join, literal, select, text, update
+from sqlalchemy import delete, func, insert, join, literal, select, text, update
 
-from pybigquery_merge_into.merge_clause import MergeInto, WhenMatched, WhenNotMatched
+from pybigquery_merge_into.merge_clause import MergeInto, WhenMatched, WhenNotMatched, WhenNotMatchedBySource
 from tests.conftest import detailed_inventory, inventory, new_arrivals, warehouse
 
 
@@ -18,6 +18,7 @@ from tests.conftest import detailed_inventory, inventory, new_arrivals, warehous
 #   - slightly different indentation (removed by sqlparse.format()-ing both queries)
 #   - adds the INTO in "MERGE [INTO]" (added to the expected SQL query)
 #   - always specifies "WHEN NOT MATCH [BY TARGET]" (added to the expected SQL query)
+#   - boolean constants are written in lowercase (changed in the expected SQL query)
 @pytest.fixture(autouse=True)
 def _(request):
     # run the test, get the SQLAlchemy query & the expected SQL output
@@ -179,6 +180,40 @@ def test_example_6():
             WhenMatched(
                 delete(T)
             )
+        ]
+    )
+
+    return query, expected
+
+
+def test_example_8():
+    expected = """\
+        MERGE INTO dataset.NewArrivals
+        USING (SELECT * FROM UNNEST([('microwave', 10, 'warehouse #1'), ('dryer', 30, 'warehouse #1'), ('oven', 20, 'warehouse #2')]))
+        ON false
+        WHEN NOT MATCHED BY TARGET THEN
+          INSERT ROW
+        WHEN NOT MATCHED BY SOURCE THEN
+          DELETE
+        """
+
+    values = [
+        str(("microwave", 10, "warehouse #1")),
+        str(("dryer", 30, "warehouse #1")),
+        str(("oven", 20, "warehouse #2")),
+    ]
+    values = ", ".join(values)
+
+    T = new_arrivals
+    S = select(["*"]).select_from(func.UNNEST(text(f"[{values}]")))  # can't get `func.UNNEST(values)` to work, renders as `UNNEST(NULL)`?
+
+    query = MergeInto(
+        target=T,
+        source=S,
+        onclause=literal(False),
+        when_clauses=[
+            WhenNotMatched(insert(T)),
+            WhenNotMatchedBySource(delete(T))
         ]
     )
 

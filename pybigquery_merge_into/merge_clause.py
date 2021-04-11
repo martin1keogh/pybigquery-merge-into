@@ -47,9 +47,12 @@ def compile_when_clause(element: _WhenClause, compiler: SQLCompiler, **kwargs):
         action_text = action_text.replace(compiler.process(element.action.table, asfrom=True), "", 1)
 
     if isinstance(element.action, Insert):
-        action_text = compiler.process(element.action, **kwargs)
-        # remove the `INTO <table>` from `INSERT INTO <table> (...) VALUES`, handling the potential aliasing
-        action_text = action_text.replace(f"INTO `{element.action.table.name}` ", "", 1)
+        if not element.action.parameters:
+            action_text = "INSERT ROW"
+        else:
+            action_text = compiler.process(element.action, **kwargs)
+            # remove the `INTO <table>` from `INSERT INTO <table> (...) VALUES`, handling the potential aliasing
+            action_text = action_text.replace(f"INTO `{element.action.table.name}` ", "", 1)
 
     text += " THEN \n\t{}\n".format(action_text)
 
