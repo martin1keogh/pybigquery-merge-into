@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from textwrap import dedent
-from typing import Generic, List, Optional, TypeVar, Union
+from typing import Generic, List, NoReturn, Optional, TypeVar, Union
 
 from sqlalchemy import Table
 from sqlalchemy.ext.compiler import compiles
@@ -10,7 +10,8 @@ from sqlalchemy.sql.compiler import SQLCompiler
 from sqlalchemy.sql.dml import Delete, Insert, Update
 from sqlalchemy.sql.selectable import SelectBase
 
-T = TypeVar("T", Insert, Update, Delete)
+_Ops = Union[Insert, Update, Delete]
+T = TypeVar("T", bound=_Ops)
 
 
 class _WhenClause(ClauseElement, Generic[T]):
@@ -30,29 +31,32 @@ class _WhenClause(ClauseElement, Generic[T]):
 
 
 @compiles(_WhenClause, "bigquery")
-def compile_when_clause(element: _WhenClause, compiler: SQLCompiler, **kwargs):
+def compile_when_clause(element: _WhenClause[_Ops], compiler: SQLCompiler, **kwargs):
     text = element.when_type()
 
     if element.condition is not None:
         text += " AND {}".format(compiler.process(element.condition, **kwargs))
 
     # The when_clause specs are ever so slightly different from the classic UPDATE/INSERT/DELETE clauses, so this sucks
-    action_text = None
     if isinstance(element.action, Delete):
         action_text = "DELETE"  # this one's alright though
 
-    if isinstance(element.action, Update):
+    elif isinstance(element.action, Update):
         action_text = compiler.process(element.action, **kwargs)
         # remove the `<table>` from `UPDATE <table> SET`
         action_text = action_text.replace(compiler.process(element.action.table, asfrom=True), "", 1)
 
-    if isinstance(element.action, Insert):
-        if not element.action.parameters:
+    elif isinstance(element.action, Insert):
+        if not element.action.parameters:  # type: ignore
             action_text = "INSERT ROW"
         else:
             action_text = compiler.process(element.action, **kwargs)
             # remove the `INTO <table>` from `INSERT INTO <table> (...) VALUES`, handling the potential aliasing
             action_text = action_text.replace(f"INTO `{element.action.table.name}` ", "", 1)
+
+    else:
+        _: NoReturn = element.action
+        raise AssertionError(f"Invalid value: {element.action !r}")
 
     text += " THEN \n\t{}\n".format(action_text)
 
