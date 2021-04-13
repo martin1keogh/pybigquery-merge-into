@@ -183,7 +183,7 @@ def test_alias_on_source(connection, target, source):
 
 def test_cte_in_source(connection, target, source):
     cte = select([source.c.s1]).cte("cte")
-    sub = select([cte.c.s1]).select_from(cte)
+    sub = select([cte.c.s1]).select_from(cte).subquery()
 
     query = MergeInto(
         target=target,

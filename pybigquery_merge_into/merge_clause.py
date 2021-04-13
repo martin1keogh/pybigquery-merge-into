@@ -4,7 +4,7 @@ from typing import Generic, List, NoReturn, Optional, TypeVar, Union
 
 from sqlalchemy import Table
 from sqlalchemy.ext.compiler import compiles
-from sqlalchemy.sql import ClauseElement, ColumnElement
+from sqlalchemy.sql import ClauseElement, ColumnElement, Subquery
 from sqlalchemy.sql.base import Executable
 from sqlalchemy.sql.compiler import SQLCompiler
 from sqlalchemy.sql.dml import Delete, Insert, Update
@@ -85,7 +85,7 @@ class MergeInto(Executable, ClauseElement):
     def __init__(
             self,
             target: Table,
-            source: Union[Table, SelectBase],
+            source: Union[Table, Subquery],
             onclause: ColumnElement,
             when_clauses: List[_WhenClause]
     ):
@@ -96,6 +96,10 @@ class MergeInto(Executable, ClauseElement):
         :param when_clauses: List of [WhenMatched, WhenNotMatched, WhenNotMatchedBySource] instances
         """
         assert when_clauses, "An MERGE INTO statement requires at least one `when_clause`"
+        assert not isinstance(source, SelectBase), "A source should not be a Selectable. If you intend to pass a subquery " \
+                                                   "please call .subquery() before calling this method. See " \
+                                                   "https://docs.sqlalchemy.org/en/14/changelog/migration_14.html#a-select-statement-is-no-longer-implicitly-considered-to-be-a-from-clause " \
+                                                   "for more information."
 
         super().__init__()
         self.target = target
@@ -122,9 +126,6 @@ def compile_merge_into(element: MergeInto, compiler: SQLCompiler, **kwargs):
     actions = []
     for when_clause in element.when_clauses:
         actions.append(compiler.process(when_clause, **kwargs))
-
-    if isinstance(element.source, SelectBase):
-        element.source = element.source.scalar_subquery()
 
     query = base_template.format(
         target=compiler.process(element.target, asfrom=True, **kwargs),

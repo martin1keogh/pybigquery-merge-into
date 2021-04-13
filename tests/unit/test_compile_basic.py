@@ -58,7 +58,7 @@ def test_when_not_matched():
 
 def test_cte_in_source():
     cte = select([source.c.s1]).cte("cte")
-    sub = select([cte.c.s1]).select_from(cte)
+    sub = select([cte.c.s1]).select_from(cte).subquery()
 
     query = MergeInto(
         target=target,
@@ -77,10 +77,10 @@ def test_cte_in_source():
         (SELECT `source`.`s1` AS `s1` 
         FROM `source`)
          SELECT `cte`.`s1` AS `s1` 
-        FROM `cte`)
-        ON `target`.`t1` = `s1`
+        FROM `cte`) AS `anon_1`
+        ON `target`.`t1` = `anon_1`.`s1`
         WHEN MATCHED THEN 
-        \tUPDATE  SET `t1`=`s1`
+        \tUPDATE  SET `t1`=`anon_1`.`s1`
         """
 
     assert str(query.compile(dialect=BigQueryDialect())) == dedent(expected)

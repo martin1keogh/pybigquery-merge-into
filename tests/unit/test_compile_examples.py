@@ -189,7 +189,7 @@ def test_example_6():
 def test_example_8():
     expected = """\
         MERGE INTO dataset.NewArrivals
-        USING (SELECT * FROM UNNEST([('microwave', 10, 'warehouse #1'), ('dryer', 30, 'warehouse #1'), ('oven', 20, 'warehouse #2')]))
+        USING (SELECT * FROM UNNEST([('microwave', 10, 'warehouse #1'), ('dryer', 30, 'warehouse #1'), ('oven', 20, 'warehouse #2')])) AS anon_1
         ON false
         WHEN NOT MATCHED BY TARGET THEN
           INSERT ROW
@@ -205,7 +205,7 @@ def test_example_8():
     values = ", ".join(values)
 
     T = new_arrivals
-    S = select(["*"]).select_from(func.UNNEST(text(f"[{values}]")))  # can't get `func.UNNEST(values)` to work, renders as `UNNEST(NULL)`?
+    S = select(["*"]).select_from(func.UNNEST(text(f"[{values}]"))).subquery()  # can't get `func.UNNEST(values)` to work, renders as `UNNEST(NULL)`?
 
     query = MergeInto(
         target=T,
