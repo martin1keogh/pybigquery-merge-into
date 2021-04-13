@@ -47,7 +47,7 @@ def compile_when_clause(element: _WhenClause[_Ops], compiler: SQLCompiler, **kwa
         action_text = action_text.replace(compiler.process(element.action.table, asfrom=True), "", 1)
 
     elif isinstance(element.action, Insert):
-        if not element.action.parameters:  # type: ignore
+        if not (element.action._values or element.action._ordered_values):  # type: ignore
             action_text = "INSERT ROW"
         else:
             action_text = compiler.process(element.action, **kwargs)
