@@ -123,6 +123,9 @@ def compile_merge_into(element: MergeInto, compiler: SQLCompiler, **kwargs):
     for when_clause in element.when_clauses:
         actions.append(compiler.process(when_clause, **kwargs))
 
+    if isinstance(element.source, SelectBase):
+        element.source = element.source.scalar_subquery()
+
     query = base_template.format(
         target=compiler.process(element.target, asfrom=True, **kwargs),
         source=compiler.process(element.source, asfrom=True, **kwargs),
