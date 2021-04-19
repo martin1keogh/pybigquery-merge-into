@@ -327,7 +327,7 @@ pyasn1 = ">=0.4.6,<0.5.0"
 
 [[package]]
 name = "pybigquery"
-version = "0.6.0"
+version = "0.6.1"
 description = "SQLAlchemy dialect for BigQuery"
 category = "main"
 optional = false
@@ -489,7 +489,7 @@ brotli = ["brotlipy (>=0.6.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "aae15fa327714204fcfaff0984ee3c992d44e76d76653983c8df9f53e4ee5fdb"
+content-hash = "278b07da4575bb44a5ba069db152305343d5a05d276ebf0ea1b68ce08519d988"
 
 [metadata.files]
 atomicwrites = [
@@ -770,8 +770,8 @@ pyasn1-modules = [
     {file = "pyasn1_modules-0.2.8-py3.7.egg", hash = "sha256:c29a5e5cc7a3f05926aff34e097e84f8589cd790ce0ed41b67aed6857b26aafd"},
 ]
 pybigquery = [
-    {file = "pybigquery-0.6.0-py2.py3-none-any.whl", hash = "sha256:bc33d34ff17e60a916e50a82788f9f2d611ac7723959d9491bd3b467a67a49fd"},
-    {file = "pybigquery-0.6.0.tar.gz", hash = "sha256:24ef28f6f84b75bb2e9f6a37805bf6accf05d62baf0bc81ff5ad99d0218a37f8"},
+    {file = "pybigquery-0.6.1-py2.py3-none-any.whl", hash = "sha256:8aabdf07c258ee2975261350fd1dca201060255e2c5e4b097e0d7eeecd2d2e1e"},
+    {file = "pybigquery-0.6.1.tar.gz", hash = "sha256:34dac116c0d2908bcb94f6ec8f1db726a5e6def4535d2ab9c91e703887c68163"},
 ]
 pycparser = [
     {file = "pycparser-2.20-py2.py3-none-any.whl", hash = "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"},
