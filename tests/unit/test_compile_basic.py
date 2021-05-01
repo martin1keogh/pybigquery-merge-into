@@ -92,7 +92,7 @@ def test_brackets_in_actions():
         source=source,
         onclause=target.c.t1 == source.c.s1,
         when_clauses=[
-            WhenMatched(insert(target).values({
+            WhenMatched(update(target).values({
                 target.c.t1: "{}"
             })),
         ]
@@ -103,7 +103,7 @@ def test_brackets_in_actions():
         USING `source`
         ON `target`.`t1` = `source`.`s1`
         WHEN MATCHED THEN 
-        \tINSERT (`t1`) VALUES ('{}')
+        \tUPDATE  SET `t1`='{}'
         """
 
     assert str(query.compile(dialect=BigQueryDialect(),  compile_kwargs={'literal_binds': True})) == dedent(expected)
