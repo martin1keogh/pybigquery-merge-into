@@ -128,7 +128,7 @@ def test_example_3():
         """
 
     T = new_arrivals.alias("T")
-    S = select([new_arrivals.c.product]).where(new_arrivals.c.warehouse != "warehouse #2").alias("S")
+    S = select(new_arrivals.c.product).where(new_arrivals.c.warehouse != "warehouse #2").alias("S")
 
     query = MergeInto(
         target=T,
@@ -164,7 +164,7 @@ def test_example_6():
     T = inventory.alias("T")
     NA = new_arrivals.alias("t1")
     W = warehouse.alias("t2")
-    S = select([NA.c.product, NA.c.quantity, W.c.state]).select_from(join(NA, W, NA.c.warehouse == W.c.warehouse)).alias("S")
+    S = select(NA.c.product, NA.c.quantity, W.c.state).select_from(join(NA, W, NA.c.warehouse == W.c.warehouse)).alias("S")
 
     query = MergeInto(
         target=T,
@@ -205,7 +205,7 @@ def test_example_8():
     values = ", ".join(values)
 
     T = new_arrivals
-    S = select(["*"]).select_from(func.UNNEST(text(f"[{values}]"))).subquery()  # can't get `func.UNNEST(values)` to work, renders as `UNNEST(NULL)`?
+    S = select("*").select_from(func.UNNEST(text(f"[{values}]"))).subquery()  # can't get `func.UNNEST(values)` to work, renders as `UNNEST(NULL)`?
 
     query = MergeInto(
         target=T,

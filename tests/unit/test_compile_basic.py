@@ -57,8 +57,8 @@ def test_when_not_matched():
 
 
 def test_cte_in_source():
-    cte = select([source.c.s1]).cte("cte")
-    sub = select([cte.c.s1]).select_from(cte).subquery()
+    cte = select(source.c.s1).cte("cte")
+    sub = select(cte.c.s1).select_from(cte).subquery()
 
     query = MergeInto(
         target=target,
