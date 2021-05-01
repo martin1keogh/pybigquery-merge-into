@@ -442,6 +442,18 @@ postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql (<1)", "pymysql"]
 
 [[package]]
+name = "sqlalchemy2-stubs"
+version = "0.0.1a5"
+description = "Typing Stubs for SQLAlchemy 1.4"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+mypy = ">=0.800"
+typing-extensions = ">=3.7.4"
+
+[[package]]
 name = "sqlparse"
 version = "0.4.1"
 description = "A non-validating SQL parser."
@@ -489,7 +501,7 @@ brotli = ["brotlipy (>=0.6.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "aae15fa327714204fcfaff0984ee3c992d44e76d76653983c8df9f53e4ee5fdb"
+content-hash = "146621c9b36e268d2f76b95f642617197b7ca2959bb4e6e834a1e4086fd00c23"
 
 [metadata.files]
 atomicwrites = [
@@ -836,6 +848,10 @@ sqlalchemy = [
     {file = "SQLAlchemy-1.3.24-cp39-cp39-win32.whl", hash = "sha256:ee5f5188edb20a29c1cc4a039b074fdc5575337c9a68f3063449ab47757bb064"},
     {file = "SQLAlchemy-1.3.24-cp39-cp39-win_amd64.whl", hash = "sha256:09083c2487ca3c0865dc588e07aeaa25416da3d95f7482c07e92f47e080aa17b"},
     {file = "SQLAlchemy-1.3.24.tar.gz", hash = "sha256:ebbb777cbf9312359b897bf81ba00dae0f5cb69fba2a18265dcc18a6f5ef7519"},
+]
+sqlalchemy2-stubs = [
+    {file = "sqlalchemy2-stubs-0.0.1a5.tar.gz", hash = "sha256:0ab0a8be4890b3296840f6b66d646e5e37bc357660ddbab6e75cdc7c8073dfdc"},
+    {file = "sqlalchemy2_stubs-0.0.1a5-py3-none-any.whl", hash = "sha256:9e5c861642e3c0d1e85079a72f96ae4be0d153688287c6d99cfa38ad46778a6c"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
