@@ -6,15 +6,14 @@ authors = ["Martin Keogh <martin1keogh@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.10"
-pybigquery = "^0.7.0"
-# Major changes coming in 1.4, can't know whether it'll work with it just yet.
-# Will need to try it out once pybigquery is compatible with it.
-SQLAlchemy = "~1.3.24"
+pybigquery = "^0.8.0"
+SQLAlchemy = "^1.4.12"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 sqlparse = "^0.4.1"
 mypy = "^0.812"
+SQLAlchemy = {version = "^1.4.12", extras = ["mypy"]}
 sqlalchemy2-stubs = "^0.0.2a1"
 
 [build-system]

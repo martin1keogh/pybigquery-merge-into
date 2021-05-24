@@ -119,7 +119,7 @@ def test_multiple_when_clauses(connection, target, source):
 
 
 def test_subquery_in_source(connection, target, source):
-    sub = select([(source.c.s1 + "_sub").label("s3")]).alias("sub")
+    sub = select((source.c.s1 + "_sub").label("s3")).alias("sub")
 
     query = MergeInto(
         target=target,
@@ -182,8 +182,8 @@ def test_alias_on_source(connection, target, source):
 
 
 def test_cte_in_source(connection, target, source):
-    cte = select([source.c.s1]).cte("cte")
-    sub = select([cte.c.s1]).select_from(cte)
+    cte = select(source.c.s1).cte("cte")
+    sub = select(cte.c.s1).select_from(cte).subquery()
 
     query = MergeInto(
         target=target,
@@ -200,7 +200,7 @@ def test_cte_in_source(connection, target, source):
 
 
 def test_update_shared_columns(connection, target, source):
-    sub = select([source.c.s1.label("t1")]).alias("sub")
+    sub = select(source.c.s1.label("t1")).alias("sub")
 
     query = MergeInto(
         target=target,
