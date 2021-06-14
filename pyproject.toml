@@ -14,7 +14,7 @@ pytest = "^6.2.4"
 sqlparse = "^0.4.1"
 mypy = "^0.902"
 SQLAlchemy = {version = "^1.4.12", extras = ["mypy"]}
-sqlalchemy2-stubs = "^0.0.2a1"
+sqlalchemy2-stubs = "^0.0.2a2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
