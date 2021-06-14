@@ -6,7 +6,7 @@ authors = ["Martin Keogh <martin1keogh@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.10"
-pybigquery = "^0.8.0"
+pybigquery = "^0.9.0"
 SQLAlchemy = "^1.4.12"
 
 [tool.poetry.dev-dependencies]
