@@ -469,7 +469,7 @@ sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
 name = "sqlalchemy2-stubs"
-version = "0.0.2a1"
+version = "0.0.2a4"
 description = "Typing Stubs for SQLAlchemy 1.4"
 category = "dev"
 optional = false
@@ -519,7 +519,7 @@ brotli = ["brotlipy (>=0.6.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "e91d63ba1137607bfe4d9b796f6942a0817c5127ce43b5a428f055bf72f81807"
+content-hash = "7560583e9bfc20f0861c29fadbc72370e17751b87860817ea369b5a740132b1a"
 
 [metadata.files]
 atomicwrites = [
@@ -928,8 +928,8 @@ sqlalchemy = [
     {file = "SQLAlchemy-1.4.15.tar.gz", hash = "sha256:0ff100c75cd175f35f4d24375a0b3d82461f5b1af5fc8d112ef0e5ceea8049e6"},
 ]
 sqlalchemy2-stubs = [
-    {file = "sqlalchemy2-stubs-0.0.2a1.tar.gz", hash = "sha256:f89a884a1a08754be4dd8630e5abfb119a48e80663715b764a1e9f07d8afa424"},
-    {file = "sqlalchemy2_stubs-0.0.2a1-py3-none-any.whl", hash = "sha256:7dfc00167cd3163c228b870fa2d247d6f6f82885f6dae4927e83a3d70d48ccfa"},
+    {file = "sqlalchemy2-stubs-0.0.2a4.tar.gz", hash = "sha256:c79cef95b6bb1790cbef3441a7c5885d9a3458dbf8313d68185e00aa4cba8f7f"},
+    {file = "sqlalchemy2_stubs-0.0.2a4-py3-none-any.whl", hash = "sha256:d131ad808f5341d9a9da33345c902fc778d7f2ff8a429dc35f726dee806fe96d"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
