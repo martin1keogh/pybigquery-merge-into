@@ -73,14 +73,14 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "google-api-core"
-version = "1.26.3"
+version = "1.31.0"
 description = "Google API client core library"
 category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*"
 
 [package.dependencies]
-google-auth = ">=1.21.1,<2.0dev"
+google-auth = ">=1.25.0,<2.0dev"
 googleapis-common-protos = ">=1.6.0,<2.0dev"
 grpcio = {version = ">=1.29.0,<2.0dev", optional = true, markers = "extra == \"grpc\""}
 packaging = ">=14.3"
@@ -114,14 +114,14 @@ pyopenssl = ["pyopenssl (>=20.0.0)"]
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "2.18.0"
+version = "2.20.0"
 description = "Google BigQuery API client library"
 category = "main"
 optional = false
 python-versions = ">=3.6, <3.10"
 
 [package.dependencies]
-google-api-core = {version = ">=1.23.0,<2.0.0dev", extras = ["grpc"]}
+google-api-core = {version = ">=1.29.0,<2.0.0dev", extras = ["grpc"]}
 google-cloud-core = ">=1.4.1,<2.0dev"
 google-resumable-media = ">=0.6.0,<2.0dev"
 packaging = ">=14.3"
@@ -339,7 +339,7 @@ pyasn1 = ">=0.4.6,<0.5.0"
 
 [[package]]
 name = "pybigquery"
-version = "0.9.0"
+version = "0.10.0"
 description = "SQLAlchemy dialect for BigQuery"
 category = "main"
 optional = false
@@ -347,9 +347,9 @@ python-versions = ">=3.6, <3.10"
 
 [package.dependencies]
 future = "*"
-google-api-core = ">=1.23.0"
-google-auth = ">=1.24.0,<2.0dev"
-google-cloud-bigquery = ">=2.17.0"
+google-api-core = ">=1.30.0"
+google-auth = ">=1.25.0,<2.0dev"
+google-cloud-bigquery = ">=2.19.0"
 sqlalchemy = ">=1.2.0,<1.5.0dev"
 
 [[package]]
@@ -519,7 +519,7 @@ brotli = ["brotlipy (>=0.6.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "79fe91bbbba14e0029c89c87412d2901f6476d9400d7d902f4540639c59df2c3"
+content-hash = "3624edba31b0b819ab7e1e1ae1d3ea4b8331efdb18881d10bd9d495af7607378"
 
 [metadata.files]
 atomicwrites = [
@@ -601,16 +601,16 @@ future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
 ]
 google-api-core = [
-    {file = "google-api-core-1.26.3.tar.gz", hash = "sha256:b914345c7ea23861162693a27703bab804a55504f7e6e9abcaff174d80df32ac"},
-    {file = "google_api_core-1.26.3-py2.py3-none-any.whl", hash = "sha256:099762d4b4018cd536bcf85136bf337957da438807572db52f21dc61251be089"},
+    {file = "google-api-core-1.31.0.tar.gz", hash = "sha256:7c8ba88e2b893ef4f67d67e229aade51a2db5053023b73b1394a5ee3dcdb561c"},
+    {file = "google_api_core-1.31.0-py2.py3-none-any.whl", hash = "sha256:a9f979b5c6a9cad31a4120ca6be712df76adc32336a7bf4bc2f4331a1b527fe7"},
 ]
 google-auth = [
     {file = "google-auth-1.28.1.tar.gz", hash = "sha256:70b39558712826e41f65e5f05a8d879361deaf84df8883e5dd0ec3d0da6ab66e"},
     {file = "google_auth-1.28.1-py2.py3-none-any.whl", hash = "sha256:186fe2564634d67fbbb64f3daf8bc8c9cecbb2a7f535ed1a8a71795e50db8d87"},
 ]
 google-cloud-bigquery = [
-    {file = "google-cloud-bigquery-2.18.0.tar.gz", hash = "sha256:d092f259f40a37b9189d75bf0d1269dd91fe11eb0bbfbfc25c93e6c5762d6f83"},
-    {file = "google_cloud_bigquery-2.18.0-py2.py3-none-any.whl", hash = "sha256:ecfc6aec99da83662126285a08c0802d104553552a489d8c46e9ca9eb8228bfb"},
+    {file = "google-cloud-bigquery-2.20.0.tar.gz", hash = "sha256:ff728f9a4a64d6b4ec5beb7fd2f6ed550b49bfe2b8bb3755c00821716e0d1f91"},
+    {file = "google_cloud_bigquery-2.20.0-py2.py3-none-any.whl", hash = "sha256:bbe41300cc931a00649d4e7c59b86e6c1e9fab94e1ba958e1a27c5b330172490"},
 ]
 google-cloud-core = [
     {file = "google-cloud-core-1.6.0.tar.gz", hash = "sha256:c6abb18527545379fc82efc4de75ce9a3772ccad2fc645adace593ba097cbb02"},
@@ -864,8 +864,8 @@ pyasn1-modules = [
     {file = "pyasn1_modules-0.2.8-py3.7.egg", hash = "sha256:c29a5e5cc7a3f05926aff34e097e84f8589cd790ce0ed41b67aed6857b26aafd"},
 ]
 pybigquery = [
-    {file = "pybigquery-0.9.0-py2.py3-none-any.whl", hash = "sha256:9af46228d83b97b1c2f1e3792fabb27e3a6805d0e931f5c6de534ef521a228e6"},
-    {file = "pybigquery-0.9.0.tar.gz", hash = "sha256:e2412c14cfe5fff28eedbb90cb29bfb8501a3ee9fddb7ac3b775b0fa995f85e4"},
+    {file = "pybigquery-0.10.0-py2.py3-none-any.whl", hash = "sha256:862c26701682f2a7d8c2b06d6329f3bfb0897bfa9dbd22726afe192ff5bf91ce"},
+    {file = "pybigquery-0.10.0.tar.gz", hash = "sha256:3794772aeaabe9e20091d72d085fa63d201bda24a886f00a9e5caf877abdf181"},
 ]
 pycparser = [
     {file = "pycparser-2.20-py2.py3-none-any.whl", hash = "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"},
