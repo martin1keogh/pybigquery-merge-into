@@ -11,7 +11,7 @@ SQLAlchemy = "^1.4.22"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
-sqlparse = "^0.4.1"
+sqlparse = "^0.4.2"
 mypy = "^0.910"
 SQLAlchemy = {version = "^1.4.22", extras = ["mypy"]}
 sqlalchemy2-stubs = "^0.0.2a8"
