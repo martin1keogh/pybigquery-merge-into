@@ -2,8 +2,8 @@ from textwrap import dedent
 
 import pytest
 import sqlparse
-from pybigquery.sqlalchemy_bigquery import BigQueryDialect
 from sqlalchemy import delete, func, insert, join, literal, select, text, update
+from sqlalchemy_bigquery import BigQueryDialect
 
 from pybigquery_merge_into.merge_clause import MergeInto, WhenMatched, WhenNotMatched, WhenNotMatchedBySource
 from tests.conftest import detailed_inventory, inventory, new_arrivals, warehouse
@@ -189,7 +189,7 @@ def test_example_6():
 def test_example_8():
     expected = """\
         MERGE INTO dataset.NewArrivals
-        USING (SELECT * FROM UNNEST([('microwave', 10, 'warehouse #1'), ('dryer', 30, 'warehouse #1'), ('oven', 20, 'warehouse #2')])) AS anon_1
+        USING (SELECT * FROM unnest([('microwave', 10, 'warehouse #1'), ('dryer', 30, 'warehouse #1'), ('oven', 20, 'warehouse #2')])) AS anon_1
         ON false
         WHEN NOT MATCHED BY TARGET THEN
           INSERT ROW

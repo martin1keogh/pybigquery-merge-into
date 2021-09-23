@@ -1,8 +1,8 @@
 from datetime import timedelta
 from textwrap import dedent
 
-from pybigquery.sqlalchemy_bigquery import BigQueryDialect
 from sqlalchemy import insert, select, update
+from sqlalchemy_bigquery import BigQueryDialect
 
 from pybigquery_merge_into.merge_clause import MergeInto, WhenMatched, WhenNotMatched
 from tests.conftest import source, target
