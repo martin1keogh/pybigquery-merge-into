@@ -422,7 +422,7 @@ sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
 name = "sqlalchemy-bigquery"
-version = "1.2.0"
+version = "1.2.1"
 description = "SQLAlchemy dialect for BigQuery"
 category = "main"
 optional = false
@@ -437,7 +437,7 @@ sqlalchemy = ">=1.2.0,<1.5.0dev"
 
 [package.extras]
 alembic = ["alembic"]
-all = ["shapely", "alembic", "pytz", "geoalchemy2", "packaging"]
+all = ["pytz", "shapely", "geoalchemy2", "alembic", "packaging"]
 geography = ["geoalchemy2", "shapely"]
 tests = ["packaging", "pytz"]
 
@@ -492,7 +492,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "9a76ae50c657ca0e8303061206384f5666cdd1a73a97ed53125ea9776d2ebca2"
+content-hash = "2314aa3c0ea89bb0f267ed2bc4f2b382b23e663a31ef42808bc79f48bfefd1b0"
 
 [metadata.files]
 atomicwrites = [
@@ -853,8 +853,8 @@ sqlalchemy = [
     {file = "SQLAlchemy-1.4.26.tar.gz", hash = "sha256:6bc7f9d7d90ef55e8c6db1308a8619cd8f40e24a34f759119b95e7284dca351a"},
 ]
 sqlalchemy-bigquery = [
-    {file = "sqlalchemy-bigquery-1.2.0.tar.gz", hash = "sha256:fb4b0e6b118c4fb797d8d79bc55f354ad6185b71c40f20bc2a91f60f93bf9d61"},
-    {file = "sqlalchemy_bigquery-1.2.0-py2.py3-none-any.whl", hash = "sha256:effb141bfa434f452b1b2eda537939481169563586c46f665e5deea9c665c640"},
+    {file = "sqlalchemy-bigquery-1.2.1.tar.gz", hash = "sha256:65869d3f9dda58b27311433b027a6576b9b97331781e8e7f8481573984cc13f6"},
+    {file = "sqlalchemy_bigquery-1.2.1-py2.py3-none-any.whl", hash = "sha256:77a158624885765534463fe934c61e1774c779e58dc395b5de86bfbefcff3c60"},
 ]
 sqlalchemy2-stubs = [
     {file = "sqlalchemy2-stubs-0.0.2a19.tar.gz", hash = "sha256:2117c48ce5acfe33bf9c9bfce2a981632d931949e68fa313aa5c2a3bc980ca7a"},
