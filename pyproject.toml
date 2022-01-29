@@ -7,13 +7,13 @@ authors = ["Martin Keogh <martin1keogh@gmail.com>"]
 [tool.poetry.dependencies]
 python = ">=3.8, <3.10"
 sqlalchemy-bigquery = "^1.2.2"
-SQLAlchemy = "^1.4.29"
+SQLAlchemy = "^1.4.31"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 sqlparse = "^0.4.2"
 mypy = "^0.931"
-SQLAlchemy = {version = "^1.4.29", extras = ["mypy"]}
+SQLAlchemy = {version = "^1.4.31", extras = ["mypy"]}
 sqlalchemy2-stubs = "^0.0.2a19"
 
 [build-system]
