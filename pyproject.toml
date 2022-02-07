@@ -10,7 +10,7 @@ sqlalchemy-bigquery = "^1.2.2"
 SQLAlchemy = "^1.4.31"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+pytest = "^7.0.0"
 sqlparse = "^0.4.2"
 mypy = "^0.931"
 SQLAlchemy = {version = "^1.4.31", extras = ["mypy"]}
