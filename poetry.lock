@@ -444,7 +444,7 @@ tests = ["packaging", "pytz"]
 
 [[package]]
 name = "sqlalchemy2-stubs"
-version = "0.0.2a21"
+version = "0.0.2a22"
 description = "Typing Stubs for SQLAlchemy 1.4"
 category = "dev"
 optional = false
@@ -493,7 +493,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "5433cf98c9f4293761a7fcdf7269f99afb33ce41157604b35330234f3dee8b53"
+content-hash = "1236fa6cd07d7366ddf3f3485ab27cbcd7381d60838a90c58cbe0ed6011a048f"
 
 [metadata.files]
 atomicwrites = [
@@ -858,8 +858,8 @@ sqlalchemy-bigquery = [
     {file = "sqlalchemy_bigquery-1.2.2-py2.py3-none-any.whl", hash = "sha256:d76e8fc61a906c5817234d9fbe88659342a6886256906951dd2837cbb302ee98"},
 ]
 sqlalchemy2-stubs = [
-    {file = "sqlalchemy2-stubs-0.0.2a21.tar.gz", hash = "sha256:207e3d8a36fc032d325f4eec89e0c6760efe81d07e978513d8c9b14f108dcd0c"},
-    {file = "sqlalchemy2_stubs-0.0.2a21-py3-none-any.whl", hash = "sha256:bd4a3d5ca7ff9d01b2245e1b26304d6b2ec4daf43a01faf40db9e09245679433"},
+    {file = "sqlalchemy2-stubs-0.0.2a22.tar.gz", hash = "sha256:31288db647bbdd411ad1e22da39a10ebe211bdcfe2efef24bcebea05abc28dd4"},
+    {file = "sqlalchemy2_stubs-0.0.2a22-py3-none-any.whl", hash = "sha256:b9b907c3555d0b11bb8d738b788be478ce3871174839171d0d49aba5d0785016"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
