@@ -15,10 +15,10 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
-dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "furo", "sphinx", "pre-commit"]
-docs = ["furo", "sphinx", "zope.interface"]
-tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
-tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six"]
+tests_no_zope = ["six", "pytest (>=4.3.0)", "pympler", "hypothesis", "coverage[toml] (>=5.0.2)"]
+tests = ["zope.interface", "six", "pytest (>=4.3.0)", "pympler", "hypothesis", "coverage[toml] (>=5.0.2)"]
+docs = ["zope.interface", "sphinx", "furo"]
+dev = ["pre-commit", "sphinx", "furo", "zope.interface", "six", "pytest (>=4.3.0)", "pympler", "hypothesis", "coverage[toml] (>=5.0.2)"]
 
 [[package]]
 name = "cachetools"
@@ -79,9 +79,9 @@ protobuf = ">=3.12.0"
 requests = ">=2.18.0,<3.0.0dev"
 
 [package.extras]
-grpc = ["grpcio (>=1.33.2,<2.0dev)"]
-grpcgcp = ["grpcio-gcp (>=0.2.2)"]
 grpcio-gcp = ["grpcio-gcp (>=0.2.2)"]
+grpcgcp = ["grpcio-gcp (>=0.2.2)"]
+grpc = ["grpcio (>=1.33.2,<2.0dev)"]
 
 [[package]]
 name = "google-auth"
@@ -97,9 +97,9 @@ pyasn1-modules = ">=0.2.1"
 rsa = ">=3.1.4,<5"
 
 [package.extras]
-aiohttp = ["aiohttp (>=3.6.2,<4.0.0dev)", "requests (>=2.20.0,<3.0.0dev)"]
-pyopenssl = ["pyopenssl (>=20.0.0)"]
 reauth = ["pyu2f (>=0.1.5)"]
+pyopenssl = ["pyopenssl (>=20.0.0)"]
+aiohttp = ["requests (>=2.20.0,<3.0.0dev)", "aiohttp (>=3.6.2,<4.0.0dev)"]
 
 [[package]]
 name = "google-cloud-bigquery"
@@ -120,13 +120,13 @@ protobuf = ">=3.12.0"
 requests = ">=2.18.0,<3.0.0dev"
 
 [package.extras]
-all = ["google-cloud-bigquery-storage (>=2.0.0,<3.0.0dev)", "grpcio (>=1.38.1,<2.0dev)", "pyarrow (>=3.0.0,<6.0dev)", "geopandas (>=0.9.0,<1.0dev)", "Shapely (>=1.6.0,<2.0dev)", "pandas (>=0.23.0)", "tqdm (>=4.7.4,<5.0.0dev)", "opentelemetry-api (>=0.11b0)", "opentelemetry-sdk (>=0.11b0)", "opentelemetry-instrumentation (>=0.11b0)"]
-bignumeric_type = ["pyarrow (>=3.0.0,<6.0dev)"]
-bqstorage = ["google-cloud-bigquery-storage (>=2.0.0,<3.0.0dev)", "grpcio (>=1.38.1,<2.0dev)", "pyarrow (>=3.0.0,<6.0dev)"]
-geopandas = ["geopandas (>=0.9.0,<1.0dev)", "Shapely (>=1.6.0,<2.0dev)"]
-opentelemetry = ["opentelemetry-api (>=0.11b0)", "opentelemetry-sdk (>=0.11b0)", "opentelemetry-instrumentation (>=0.11b0)"]
-pandas = ["pandas (>=0.23.0)", "pyarrow (>=3.0.0,<6.0dev)"]
 tqdm = ["tqdm (>=4.7.4,<5.0.0dev)"]
+pandas = ["pyarrow (>=3.0.0,<6.0dev)", "pandas (>=0.23.0)"]
+opentelemetry = ["opentelemetry-instrumentation (>=0.11b0)", "opentelemetry-sdk (>=0.11b0)", "opentelemetry-api (>=0.11b0)"]
+geopandas = ["Shapely (>=1.6.0,<2.0dev)", "geopandas (>=0.9.0,<1.0dev)"]
+bqstorage = ["pyarrow (>=3.0.0,<6.0dev)", "grpcio (>=1.38.1,<2.0dev)", "google-cloud-bigquery-storage (>=2.0.0,<3.0.0dev)"]
+bignumeric_type = ["pyarrow (>=3.0.0,<6.0dev)"]
+all = ["opentelemetry-instrumentation (>=0.11b0)", "opentelemetry-sdk (>=0.11b0)", "opentelemetry-api (>=0.11b0)", "tqdm (>=4.7.4,<5.0.0dev)", "pandas (>=0.23.0)", "Shapely (>=1.6.0,<2.0dev)", "geopandas (>=0.9.0,<1.0dev)", "pyarrow (>=3.0.0,<6.0dev)", "grpcio (>=1.38.1,<2.0dev)", "google-cloud-bigquery-storage (>=2.0.0,<3.0.0dev)"]
 
 [[package]]
 name = "google-cloud-core"
@@ -166,8 +166,8 @@ python-versions = ">= 3.6"
 google-crc32c = ">=1.0,<2.0dev"
 
 [package.extras]
-aiohttp = ["aiohttp (>=3.6.2,<4.0.0dev)"]
 requests = ["requests (>=2.18.0,<3.0.0dev)"]
+aiohttp = ["aiohttp (>=3.6.2,<4.0.0dev)"]
 
 [[package]]
 name = "googleapis-common-protos"
@@ -238,9 +238,9 @@ tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
 typing-extensions = ">=3.10"
 
 [package.extras]
-dmypy = ["psutil (>=4.0)"]
-python2 = ["typed-ast (>=1.4.0,<2)"]
 reports = ["lxml"]
+python2 = ["typed-ast (>=1.4.0,<2)"]
+dmypy = ["psutil (>=4.0)"]
 
 [[package]]
 name = "mypy-extensions"
@@ -270,7 +270,7 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
-dev = ["pre-commit", "tox"]
+dev = ["tox", "pre-commit"]
 
 [[package]]
 name = "proto-plus"
@@ -348,7 +348,7 @@ py = ">=1.8.2"
 tomli = ">=1.0.0"
 
 [package.extras]
-testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
+testing = ["xmlschema", "requests", "pygments (>=2.7.2)", "nose", "mock", "hypothesis (>=3.56)", "argcomplete"]
 
 [[package]]
 name = "requests"
@@ -365,8 +365,8 @@ idna = {version = ">=2.5,<4", markers = "python_version >= \"3\""}
 urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
-socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
+socks = ["win-inet-pton", "PySocks (>=1.5.6,!=1.5.7)"]
 
 [[package]]
 name = "rsa"
@@ -437,14 +437,14 @@ google-cloud-bigquery = ">=2.25.2,<3.0.0dev"
 sqlalchemy = ">=1.2.0,<1.5.0dev"
 
 [package.extras]
+tests = ["pytz", "packaging"]
+geography = ["shapely", "geoalchemy2"]
+all = ["shapely", "packaging", "alembic", "pytz", "geoalchemy2"]
 alembic = ["alembic"]
-all = ["geoalchemy2", "pytz", "alembic", "packaging", "shapely"]
-geography = ["geoalchemy2", "shapely"]
-tests = ["packaging", "pytz"]
 
 [[package]]
 name = "sqlalchemy2-stubs"
-version = "0.0.2a21"
+version = "0.0.2a25"
 description = "Typing Stubs for SQLAlchemy 1.4"
 category = "dev"
 optional = false
@@ -486,14 +486,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 
 [package.extras]
-brotli = ["brotlipy (>=0.6.0)"]
-secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+secure = ["ipaddress", "certifi", "idna (>=2.0.0)", "cryptography (>=1.3.4)", "pyOpenSSL (>=0.14)"]
+brotli = ["brotlipy (>=0.6.0)"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.10"
-content-hash = "5433cf98c9f4293761a7fcdf7269f99afb33ce41157604b35330234f3dee8b53"
+content-hash = "06b506fdf2ac59df9353a8cad15d0a25b6eeb1c726a1922a6e32c240397a4e44"
 
 [metadata.files]
 atomicwrites = [
@@ -858,8 +858,8 @@ sqlalchemy-bigquery = [
     {file = "sqlalchemy_bigquery-1.2.2-py2.py3-none-any.whl", hash = "sha256:d76e8fc61a906c5817234d9fbe88659342a6886256906951dd2837cbb302ee98"},
 ]
 sqlalchemy2-stubs = [
-    {file = "sqlalchemy2-stubs-0.0.2a21.tar.gz", hash = "sha256:207e3d8a36fc032d325f4eec89e0c6760efe81d07e978513d8c9b14f108dcd0c"},
-    {file = "sqlalchemy2_stubs-0.0.2a21-py3-none-any.whl", hash = "sha256:bd4a3d5ca7ff9d01b2245e1b26304d6b2ec4daf43a01faf40db9e09245679433"},
+    {file = "sqlalchemy2-stubs-0.0.2a25.tar.gz", hash = "sha256:2fbfddfee7fc6b45206dc52e9fe9d91a787efb6af13191debe84dda9b4798abd"},
+    {file = "sqlalchemy2_stubs-0.0.2a25-py3-none-any.whl", hash = "sha256:9104894cee3159906079c4a31c2a66fbedfc72a381c51dfd1d8ebae8ffd7f2ca"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
